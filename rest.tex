@@ -1,0 +1,236 @@
+\section{REST in practice}
+
+\subsection{Overview}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{Overview}
+
+	\begin{block}{\rest\ = \textbf{RE}presentational \textbf{S}tate \textbf{T}ransfert}
+	
+		\begin{itemize}
+		
+		\item \rest\ \emph{is} basically a concept, a set of principles (best practices) referred as ``constraints'' and described through natural language
+		
+		\item \rest\ \emph{is not} a tight specification, and there exists more than a way to produce \restful\ web services 
+			\begin{itemize} 
+				\item Yeah, this is about web-services, so cool!
+			\end{itemize}
+			
+		\item It's not a dichotomy, nor simply a matter of \restful\ and \restless\ web-services:
+			\begin{itemize} 
+				\item there are \emph{more \restful} ones ...
+				\item ... and \emph{more \restless} ones
+			\end{itemize}
+			
+		\item \restful\ (distributed) systems tend to be scalable, robust and easy to develop, understand and maintain
+			\begin{itemize} 
+				\item Yet not every system should be \restful
+				\item Silver-bullets are like unicorns: they do not exist.
+			\end{itemize}
+		
+		\end{itemize}
+		
+	\end{block}
+	
+	\begin{block}{\rest\ constraints}
+		\restful\ systems *should* satisfy the following 6 constraints:
+		\begin{itemize} 
+			\item Client-server
+			\item Stateless interaction
+			\item Chaceability
+			\item Uniform Interface
+			\item Layered System
+			\item Code on Demand (Optional)
+		\end{itemize}
+		 
+	\end{block}
+
+\end{frame}
+
+\subsection{Principles}
+
+\subsubsection{Client-server}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{Client-server}
+	There are two kind of entities: \emph{servers} and \emph{clients} communicating via a \emph{connector}.
+	
+	\begin{block}{Servers}
+		Reactive entities providing one or more services to multiple clients
+	\end{block}
+	
+	\begin{block}{Clients}
+		Triggering (proactive) entities making requests that trigger reactions from servers.
+	\end{block}
+	
+	\begin{block}{Connectors}
+		Mechanism that allows communication between clients and servers (e.g. HTTP protocol, Message Oriented Middleware, RPC, etc.)
+	\end{block}
+	
+	\framebreak
+
+	Separation of concerns is the key concept here.
+	
+	\begin{block}{Separation of concerns}
+		Once both clients and servers concerns have been fixed and some sort of common interface have been defined, the two kind of components evolve independently.
+	\end{block}
+	
+	\begin{exampleblock}{Client-server constraint in web-based systems}
+		Web-based systems quite often satisfy this constraint.
+	\end{exampleblock}
+	
+\end{frame}
+
+\subsubsection{Stateless interaction}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{Stateless interaction}
+	
+	This is probably the most important constraint as well as the hardest one: each request from client to server must contain all of the information necessary to understand the request, and cannot take advantage of any stored context on the server. Application state is therefore kept entirely on the client.
+	
+	\begin{block}{Application state}
+		Data that could vary by client, and per request.
+	\end{block}
+	
+	\begin{block}{Exceptions are tolerated}
+		Immutability is a utopia. For real world problems, you should just try to minimize mutability. E.g. request rate monitoring requires mutability. 
+		However, make every effort to ensure that application state doesn't span multiple requests of your services.
+		
+	\end{block}
+	
+	\framebreak
+	
+	\begin{block}{Cookies}
+		Cookies do not necessarily violate this constraint, since the are part of each HTTP interaction.
+	\end{block}
+	
+	\begin{alertblock}{Sessions identifiers}
+		Assigning any sort of temporary session identifier to the some user *and* storing session data using some data structure within server's memory is inherently a violation of the constraint.
+		Since this is the common usage of cookies, they are discouraged.
+	\end{alertblock}
+	
+	\begin{example}
+		A stateless communication litmus test is to turn off session cookies, and determine if the API, web service, or web application still works as designed.
+	\end{example}
+	
+	\framebreak
+		
+	\begin{block}{Authentication}
+		This constraint makes authentication critical. Other approaches have been developed which are more secure and \restful. 
+	\end{block}
+\end{frame}
+
+\subsubsection{Cacheability}
+
+\begin{frame}
+	\frametitle{Cacheability}
+	
+	\begin{block}{Cacheable responses}
+		\begin{itemize}
+			\item Clients can cache responses
+			\item Responses must therefore, implicitly or explicitly, define themselves as cacheable, or not
+			\begin{itemize}
+				\item to prevent clients reusing stale or inappropriate data in response to further requests
+			\end{itemize}
+			\item Well-managed caching partially or completely eliminates some client-server interactions
+			\begin{itemize}
+				\item further improving scalability and performance
+			\end{itemize}
+		\end{itemize}
+	
+	\end{block}
+\end{frame}
+
+\subsubsection{Uniform Interface}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{Uniform Interface}
+	
+	\begin{itemize}
+		\item The uniform interface constraint defines the interface between clients and servers. 
+		\item This is probably secret of \rest's simplicity and strength.
+		\item \restful\ systems expose a standard, unambiguous, clear and human-readable API because of this constraint.
+			\begin{itemize}
+				\item Such a principle allows for model-driven approaches. 
+			\end{itemize}
+	\end{itemize}
+	
+	\begin{block}{Uniform Interface Requirements}
+		\begin{itemize}
+			\item Resource-based
+			\item Manipulation of Resources Through Representations
+			\item Self-descriptive Messages
+			\item HATEOAS (dafuq ?!)
+			
+		\end{itemize}
+	\end{block}
+	
+	\framebreak
+	
+	
+	\begin{block}{Resource-Based}
+		\begin{itemize}
+			\item \restful\ systems handle \emph{resources}: servers host resources and clients want to CRUD them
+			\begin{itemize}
+				\item[$\Rightarrow$] \textbf{C}reate or \textbf{R}ead or \textbf{U}pdate or \textbf{D}elete
+			\end{itemize}
+			\item Resources are not accessed (CRUDed) directly but through their representation(s)
+			\item Resources have a \emph{hierarchical} nature
+			\item Resources are identified and referenced by the mean of URIs
+				\begin{itemize}
+					\item[$\Rightarrow$] \textbf{U}niform \textbf{R}esource \textbf{I}dentifier
+				\end{itemize}
+			
+		\end{itemize}
+	\end{block}
+		
+	\begin{block}{HTTP Verbs}
+	
+		\begin{itemize}
+			\item CRUD in Web-based systems means exploiting HTTP methods, which are often called ``verbs'' because of their usage within APIs:
+			\begin{itemize}
+				\item POST is used for resource Creation
+				\item GET mean is to Read resources
+				\item PUT aim is to Update resources
+				\item DELETE is used to Delete resources					
+			\end{itemize}
+			\item HTTP Status codes and their general purpose semantics are part of the uniform interface too:
+			\begin{itemize}
+				\item e.g. any successful request will result in a \texttt{200:\,Ok} or \texttt{204:\,No\,Content} status code (depending on weather the response has body or not)
+				\item e.g. trying to GET or DELETE any non-existent resource will result in a \texttt{404:\,Not\,Found} status code
+				\item e.g. POSTing an already-existing user will result in a \texttt{409:\,Conflict} status code
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+	
+	\framebreak
+	
+	\begin{itemize}
+		\item Example of resource creation: 
+		\begin{itemize}
+			\item we want to edit some user's username from \texttt{gciatto92} to \texttt{gciatto}
+			\item suppose no authentication is needed
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{alertblock}{Example of non-\restful\ approach}
+		\begin{itemize}
+			\item \texttt{GET http://example.com/users?\-user=gciatto92\&\-operation=changeName\&\-newName=gciatto}
+			\item[]
+			\item[$\times$] RPC style: the request contains the to-be-called operation
+			\item[$\times$] No semantics for \texttt{GET} verb
+			\item[$\times$] Which resource am I editing?
+		\end{itemize}
+	\end{alertblock}	
+	
+	\begin{exampleblock}{Example of \restful\ approach}
+		\begin{itemize}
+			\item \texttt{PUT http://example.com/users/gciatto92?newName=gciatto}
+			\item[]
+			\item[$\checkmark$] I'm editing the resource \texttt{gciatto92}, which is a user, composing the \texttt{users} resource, which represents the collection of registered users 
+			\item[$\checkmark$] \texttt{PUT} verb means Update and that's what I am doing
+			\item[$\checkmark$] URI queries are simply a mean for payload transport
+		\end{itemize}
+	\end{exampleblock}	
+\end{frame}
+

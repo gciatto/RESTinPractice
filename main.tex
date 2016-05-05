@@ -1,0 +1,43 @@
+\documentclass{beamer}
+
+\usepackage{default}
+
+\newcommand{\rest}{REST}
+\newcommand{\restful}{RESTful}
+\newcommand{\restless}{RESTless}
+
+\title{Pratical \restful\ API design}
+\subtitle{Exploration over technologies enabling a Model-Driven approach in \restful\ API development}
+\author[G. Ciatto]{Giovanni Ciatto \\ \texttt{giovanni.ciatto@studio.unibo.it}}
+\date{May 18, 2016}
+\institute[UNIBO]{University of Bologna \\ Computer Science and Engineering}
+\subject{Web Application and Services}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\input{rest.tex}
+
+\input{bib.tex}
+
+\end{document}
