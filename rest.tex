@@ -118,6 +118,17 @@
 	\begin{block}{Authentication}
 		This constraint makes authentication critical. Other approaches have been developed which are more secure and \restful. 
 	\end{block}
+	
+	\begin{block}{Authentication over HTTP - Overview}
+		\begin{itemize}
+			\item HTTP\textbf{S} is base-assumption here
+			\item SIDs over Cookies are stateful
+			\item \emph{Basic access authentication} is conceptually what we need - too naive
+			\item \emph{Digest access authentication} employs MD5...
+			\item \emph{OAuth}: is strong \& complex
+			\item \emph{JWT} is some good trade-off IMWO
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 \subsubsection{Cacheability}
