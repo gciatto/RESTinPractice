@@ -143,7 +143,7 @@
 
 \subsubsection{Uniform Interface}
 
-\begin{frame}[allowframebreaks]
+\begin{frame}[allowframebreaks,fragile]
 	\frametitle{Uniform Interface}
 	
 	\begin{itemize}
@@ -174,7 +174,7 @@
 			\begin{itemize}
 				\item[$\Rightarrow$] \textbf{C}reate or \textbf{R}ead or \textbf{U}pdate or \textbf{D}elete
 			\end{itemize}
-			\item Resources are not accessed (CRUDed) directly but through their representation(s)
+			% \item Resources are not accessed (CRUDed) directly but through their representation(s)
 			\item Resources have a \emph{hierarchical} nature
 			\item Resources are identified and referenced by the mean of URIs
 				\begin{itemize}
@@ -232,5 +232,61 @@
 			\item[$\checkmark$] URI queries are simply a mean for payload transport
 		\end{itemize}
 	\end{exampleblock}	
+	
+	\framebreak
+	
+	\begin{block}{Manipulation of Resources Through Representations}
+		
+		\begin{itemize}
+			\item Resources are not accessed (CRUDed) directly but through their representation(s)
+			\item Representations should expose resources traits to clients enabling them to do what they are allowed to, no more and no less
+			\item Clients cannot make assumptions upon resources implementations, they can only exploit representations
+		\end{itemize}
+	\end{block}
+	
+	\begin{block}{Self-descriptive Messages}
+			
+		\begin{itemize}
+			\item Each message must include enough information to describe how to process the message itself
+			\begin{itemize}
+				\item E.g. HTTP's \emph{Content Negotiation} is a powerfull feature: use it! \texttt{Accept} and \texttt{Content-Type} headers allow different representations for resources exposing some business logic
+				\item Prefer JSON but try to support XML
+			\end{itemize}
+			
+		\end{itemize}
+	\end{block}
+	
+	\framebreak
+	
+	\begin{block}{HATEOAS - \textbf{H}ypermedia \textbf{A}s \textbf{T}he \textbf{E}ngine \textbf{O}f \textbf{A}pplication \textbf{S}tate}
+			
+		\begin{itemize}
+			\item Difficult constraint to fully accomplish IMHO
+			\item Weak definition is enough for our concerns: \emph{``Services responses should contain \emph{`relational links'} when they may be useful''}
+			\item Relationships are standardized
+			\item In completely-RESTful HTTP-based systems, relational links are the only mean used by clients to interact with servers
+		\end{itemize}
+	\end{block}
+	
+	\begin{example}
+		\texttt{GET http://example.com/users?limit=3} \\
+		supposing the first three users are \texttt{gciatto}, \texttt{mfrancia} and \texttt{mneri}, it should return something like:
+		\begin{lstlisting}[basicstyle=\scriptsize]
+			[
+			  {
+			    "username" = "gciatto",
+			    "links" = [
+			      { "rel" = "next", "href" = "/users/mfrancia" },
+			      { "rel" = "prev", "href" = "/users/mneri" },
+			      { "rel" = "first", "href" = "/users/gciatto" },
+			      { "rel" = "last", "href" = "/users/mneri" },
+			      { "rel" = "self", "href" = "/users/gciatto" }
+			    ]
+			  }
+			  ...
+			]
+		\end{lstlisting}
+	\end{example}
+		
 \end{frame}
 
