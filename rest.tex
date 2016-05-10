@@ -301,3 +301,38 @@
 		
 \end{frame}
 
+\subsubsection{Layered System}
+
+\begin{frame}
+	\frametitle{Layered System}
+	
+	\begin{block}{Rules}
+		\begin{itemize}
+			\item A client cannot ordinarily tell whether it is connected directly to the end server, or to an intermediary along the way
+			\item Intermediary servers may improve system scalability by enabling load-balancing and by providing shared caches
+			\item Layers may also enforce security policies
+		\end{itemize}
+	\end{block}
+	
+	\begin{exampleblock}{In practice}
+		\emph{DO NOT} make assumption about network topology
+	\end{exampleblock}
+
+\end{frame}
+
+\subsubsection{Code on demand}
+
+\begin{frame}
+	\frametitle{Code on demand (optional constraint)}
+	
+	\begin{block}{Rules}
+		\begin{itemize}
+			\item Servers are able to \emph{temporarily} extend or customize the functionality of a client by transferring logic to it that it can execute
+		\end{itemize}
+	\end{block}
+	
+	\begin{exampleblock}{In practice}
+		JavaScript
+	\end{exampleblock}
+
+\end{frame}

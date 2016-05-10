@@ -1,0 +1,75 @@
+\newcommand{\swaggerlogo}{\vcenteredhbox{\includegraphics[height=0.07\textheight]{./img/tag_swagger.png}}}
+\newcommand{\ramllogo}{\vcenteredhbox{\includegraphics[height=0.07\textheight]{./img/tag_raml.jpg}}}
+\newcommand{\blueprintlogo}{\vcenteredhbox{\includegraphics[height=0.07\textheight]{./img/tag_apiblueprint.png}}}
+
+\section{Model-First approach}
+
+\subsection{Overview}
+
+\subsubsection{Steps of REST Service Creation}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{Steps of REST Service Creation}
+	
+	Supposing we already defined some \emph{logic architecture} of the system or we `simply' need to wrap some pre-existing SW:
+	\setbeamertemplate{enumerate items}[default]
+	\begin{enumerate}
+		\item Define the mean(s) for user/caller authentication
+		\item Identify \emph{resources} and HTTP \emph{verbs} they support
+		\item Assign some \emph{route} (URI) to each resource
+		\begin{itemize}
+			\item Routes can contain one or more \emph{query parameters}
+		\end{itemize}
+		
+		\framebreak
+		
+		\item For each method supported by each route:
+		\begin{enumerate}
+			\item Choose one ore more needed authentication means
+			\item Define supported request/response \emph{content-types}
+			\begin{itemize}
+				\item \texttt{application/json}, \texttt{application/xml}, \texttt{text/html}, \ldots			
+			\end{itemize}
+			\item Define \emph{where} to put \emph{request's arguments}
+			\begin{itemize}
+				\item Headers, Body, URI, Query	
+			\end{itemize}
+			\item Define request's arguments \emph{structures}
+			\begin{itemize}
+				\item \emph{JSON Schema}, \emph{DTD}, \emph{XML Schema}, \ldots
+			\end{itemize}
+			\item Define \emph{status codes} allowed as \emph{responses} and, for each one:
+				\begin{itemize}
+					\item \emph{Body}'s structure
+					\item \emph{Headers}' structure
+				\end{itemize}
+		\end{enumerate}
+	\end{enumerate}
+	
+	\framebreak
+	
+	\begin{exampleblock}{INSERT EXAMPLE IMAGE}
+		
+	\end{exampleblock}
+	
+\end{frame}
+
+\subsubsection{Model-first tools}
+
+\begin{frame} %[allowframebreaks]
+	\frametitle{Model-first tools}
+	
+	What if we had some formal way to model APIs?
+	
+	\begin{exampleblock}{Swagger}
+		 \swaggerlogo\ \url{http://swagger.io}
+	\end{exampleblock}
+	
+	\begin{exampleblock}{RAML - \textbf{R}ESTful \textbf{A}PI \textbf{M}odelling \textbf{L}anguage}	
+		\ramllogo\ \url{http://www.raml.org}
+	\end{exampleblock}
+	
+	\begin{exampleblock}{Api Blueprint}
+	 	\blueprintlogo\ \url{https://apiblueprint.org/}
+	\end{exampleblock}
+\end{frame}

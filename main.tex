@@ -8,8 +8,11 @@
 \newcommand{\restful}{RESTful}
 \newcommand{\restless}{RESTless}
 
+\newcommand*{\vcenteredhbox}[1]{\begingroup
+\setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+
 \title{Pratical \restful\ API design}
-\subtitle{Exploration over technologies enabling a Model-Driven approach in \restful\ API development}
+\subtitle{Exploration over technologies enabling a Model-First approach in \restful\ API development}
 \author[G. Ciatto]{Giovanni Ciatto \\ \texttt{giovanni.ciatto@studio.unibo.it}}
 \date{May 18, 2016}
 \institute[UNIBO]{University of Bologna \\ Computer Science and Engineering}
@@ -39,6 +42,8 @@
 \frame{\titlepage}
 
 \input{rest.tex}
+
+\input{model_first.tex}
 
 \input{bib.tex}
 
