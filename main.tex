@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{url}
 \usepackage{tabularx}
+\usepackage{multicol}
 
 \newcommand{\rest}{REST}
 \newcommand{\restful}{RESTful}
@@ -28,7 +29,9 @@
 {
   \begin{frame}
     \frametitle{Table of Contents}
-    \tableofcontents[currentsection]
+    \begin{multicols}{2}
+    	\tableofcontents[currentsection]
+    \end{multicols}
   \end{frame}
 }
 
@@ -36,7 +39,10 @@
 {
   \begin{frame}
     \frametitle{Outline}
-    \tableofcontents[currentsection,currentsubsection]
+    \begin{multicols}{2}
+   		\tableofcontents[currentsection,currentsubsection]
+    \end{multicols}
+
   \end{frame}
 }
 
@@ -47,6 +53,12 @@
 \input{rest.tex}
 
 \input{model_first.tex}
+
+\input{swagger.tex}
+
+\input{raml.tex}
+
+\input{auth.tex}
 
 \input{bib.tex}
 
